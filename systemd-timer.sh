@@ -27,6 +27,23 @@ timer_monitor() {
 }
 
 timer_validate_all() {
+  check_binary $BINARY
+
+  local STDERR=$($CMD show --property=Id "$UNIT" 2>&1 >/dev/null)
+  if [ $? -ne 0 ]; then
+    ocf_log err "$CMD: $STDERR"
+    # do a more thorough check
+    if $CMD --quiet is-system-running
+      # unit-specific error
+      local CODE=$OCF_ERR_INSTALLED
+    else
+      # probably can't connect to D-Bus
+      local CODE=$OCF_ERR_PERM
+    fi
+    exit $CODE
+  fi
+
+  return $OCF_SUCCESS
 }
 
 # Make sure meta-data and usage always succeed
