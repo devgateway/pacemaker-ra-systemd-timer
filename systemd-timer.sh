@@ -13,6 +13,22 @@ timer_meta_data() {
 EOF
 }
 
+timer_usage() {
+  echo "Usage: $0 {start|stop|monitor|validate-all|meta-data}" >&2
+}
+
+timer_start() {
+}
+
+timer_stop() {
+}
+
+timer_monitor() {
+}
+
+timer_validate_all() {
+}
+
 # Make sure meta-data and usage always succeed
 case $__OCF_ACTION in
 meta-data)	timer_meta_data
