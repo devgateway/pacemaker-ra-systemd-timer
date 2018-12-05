@@ -31,6 +31,23 @@ timer_start() {
 }
 
 timer_stop() {
+  timer_monitor
+  case $? in
+    $OCF_NOT_RUNNING)
+      ocf_log info "$UNIT already stopped"
+      return $OCF_SUCCESS
+      ;;
+    $OCF_SUCCESS)
+      ocf_log debug "$UNIT running, attempting shutdown"
+      if $CMD --quiet --wait stop "$UNIT"; then
+        ocf_log debug "Stopped $UNIT"
+        return $OCF_SUCCESS
+      else
+        ocf_log err "Failed to stop $UNIT"
+        return $OCF_ERR_GENERIC
+      fi
+      ;;
+  esac
 }
 
 timer_monitor() {
