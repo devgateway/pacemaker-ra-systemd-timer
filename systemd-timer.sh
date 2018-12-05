@@ -39,6 +39,14 @@ usage|help)	timer_usage
 		;;
 esac
 
+BINARY=systemctl
+if ocf_is_root; then
+  CMD="$BINARY --system"
+else
+  CMD="$BINARY --user"
+fi
+UNIT="$(echo "$OCF_RESKEY_name" | sed 's/\.timer$//').timer"
+
 # Anything other than meta-data and usage must pass validation
 timer_validate_all || exit $?
 
