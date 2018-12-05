@@ -18,6 +18,16 @@ timer_usage() {
 }
 
 timer_start() {
+  if timer_monitor; then
+    ocf_log info "$UNIT already running"
+    return $OCF_SUCCESS
+  fi
+
+  if $CMD --quiet --wait start "$UNIT"; then
+    return $OCF_SUCCESS
+  else
+    return $OCF_ERR_GENERIC
+  fi
 }
 
 timer_stop() {
