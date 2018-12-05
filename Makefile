@@ -1,7 +1,7 @@
 OCF_AGENT = systemd-timer
 define template
 	awk '! /^##include/ { print $$0 } \
-	  /^##include/ { while ((getline line < $$2) > 0) { print "    " line } }' $(1) > $(2)
+	  /^##include/ { while ((getline line < $$2) > 0) { print line } }' $(1) > $(2)
 endef
 
 .PHONY: clean
