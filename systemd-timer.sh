@@ -23,7 +23,7 @@ timer_start() {
     return $OCF_SUCCESS
   fi
 
-  if $CMD --quiet --wait start "$UNIT"; then
+  if $CMD --quiet start "$UNIT"; then
     return $OCF_SUCCESS
   else
     return $OCF_ERR_GENERIC
@@ -39,7 +39,7 @@ timer_stop() {
       ;;
     $OCF_SUCCESS)
       ocf_log debug "$UNIT running, attempting shutdown"
-      if $CMD --quiet --wait stop "$UNIT"; then
+      if $CMD --quiet stop "$UNIT"; then
         ocf_log debug "Stopped $UNIT"
         return $OCF_SUCCESS
       else
@@ -73,7 +73,7 @@ timer_validate_all() {
   if [ $? -ne 0 ]; then
     ocf_log err "$CMD: $STDERR"
     # do a more thorough check
-    if $CMD --quiet is-system-running
+    if $CMD --quiet is-system-running; then
       # unit-specific error
       local CODE=$OCF_ERR_INSTALLED
     else
