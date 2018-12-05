@@ -24,6 +24,19 @@ timer_stop() {
 }
 
 timer_monitor() {
+  if $CMD --quiet is-active "$UNIT"; then
+    ocf_log debug "$UNIT is active"
+    return $OCF_SUCCESS
+  else
+    # inspect further
+    if $CMD --quiet is-failed "$UNIT"; then
+      ocf_log debug "$UNIT has failed"
+      exit $OCF_ERR_GENERIC
+    else
+      ocf_log debug "$UNIT is inactive"
+      return $OCF_NOT_RUNNING
+    fi
+  fi
 }
 
 timer_validate_all() {
