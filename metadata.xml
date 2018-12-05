@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE resource-agent SYSTEM "ra-api-1.dtd">
+<resource-agent name="systemd-timer">
+  <version>0.1</version>
+  <longdesc lang="en">
+    Start and stop Systemd timer units
+  </longdesc>
+  <shortdesc lang="en">Start and stop Systemd timer units</shortdesc>
+  <parameters>
+    <parameter name="name" unique="0" required="1">
+      <longdesc lang="en">Systemd unit name, the suffix ".timer" is optional</longdesc>
+      <shortdesc lang="en">Unit name</shortdesc>
+      <content type="string"/>
+    </parameter>
+  </parameters>
+  <actions>
+    <action name="start" timeout="20" />
+    <action name="stop" timeout="20" />
+    <action name="monitor" timeout="20" interval="10" depth="0" />
+    <action name="meta-data" timeout="5" />
+    <action name="validate-all" timeout="20" />
+  </actions>
+</resource-agent>
