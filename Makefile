@@ -8,6 +8,7 @@ endef
 
 $(OCF_AGENT): $(OCF_AGENT).sh metadata.xml
 	$(call template,$<,$@)
+	chmod +x $@
 
 clean:
 	rm -f $(OCF_AGENT)
