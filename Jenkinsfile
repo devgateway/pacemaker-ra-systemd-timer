@@ -30,7 +30,7 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          sh 'make'
+          sh 'make clean && make'
         }
       }
     } // stage
